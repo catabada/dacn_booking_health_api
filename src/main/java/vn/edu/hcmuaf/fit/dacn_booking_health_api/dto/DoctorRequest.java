@@ -3,9 +3,12 @@ package vn.edu.hcmuaf.fit.dacn_booking_health_api.dto;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public class DoctorDto {
+public class DoctorRequest {
+    List<Long> symptomIds;
 }

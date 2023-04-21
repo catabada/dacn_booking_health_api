@@ -13,7 +13,8 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Symptom implements Serializable {
+public class Specialist implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,7 +22,13 @@ public class Symptom implements Serializable {
     @Column(unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "symptoms")
-    private List<Specialist> specialists;
+    @OneToMany(mappedBy = "specialist")
+    private List<Doctor> doctors;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "specialist_symptom",
+            joinColumns = @JoinColumn(name = "specialist_id"),
+            inverseJoinColumns = @JoinColumn(name = "symptom_id"))
+    private List<Symptom> symptoms;
 }
