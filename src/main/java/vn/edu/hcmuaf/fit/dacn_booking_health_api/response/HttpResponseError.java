@@ -15,6 +15,6 @@ public class HttpResponseError extends HttpResponse{
 
     public static HttpResponseError error(HttpStatus status, int statusCode, String message) {
         return HttpResponseError.builder()
-                .status(status).statusCode(statusCode).success(true).message(message).build();
+                .status(status).statusCode(statusCode).success(false).message(message).build();
     }
 }

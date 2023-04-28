@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -36,5 +37,11 @@ public class Appointment implements Serializable {
 
     private String description; // include symptom
 
+    @OneToMany(mappedBy = "appointment")
+    private List<Symptom> symptoms;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "specialist_id")
+    private Specialist specialist;
 
 }
