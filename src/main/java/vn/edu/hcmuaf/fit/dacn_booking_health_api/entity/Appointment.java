@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.dacn_booking_health_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -20,9 +21,6 @@ public class Appointment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Schedule schedule;
-
     private String name;
 
     private String email;
@@ -33,15 +31,21 @@ public class Appointment implements Serializable {
 
     private Boolean isMale;
 
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "Asia/Ho_Chi_Minh")
     private Date birthDay;
 
-    private String description; // include symptom
+    private String description;
 
-    @OneToMany(mappedBy = "appointment")
+    @Transient
+    @OneToOne
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
+
+    @ManyToMany
+    @JoinTable(name = "appointment_symptom",
+            joinColumns = @JoinColumn(name = "appointment_id"),
+            inverseJoinColumns = @JoinColumn(name = "symptom_id"))
     private List<Symptom> symptoms;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "specialist_id")
-    private Specialist specialist;
 
 }

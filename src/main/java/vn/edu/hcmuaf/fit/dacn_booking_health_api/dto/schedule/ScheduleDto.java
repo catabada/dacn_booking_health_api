@@ -1,28 +1,21 @@
-package vn.edu.hcmuaf.fit.dacn_booking_health_api.entity;
+package vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.schedule;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.DoctorDto;
 
-import java.io.Serializable;
 import java.sql.Time;
-import java.time.ZonedDateTime;
 
-@Entity
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
-public class Schedule implements Serializable {
+public class ScheduleDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Doctor doctor;
+    private DoctorDto doctor;
 
     // day of week
     private Integer dayOfWeek;

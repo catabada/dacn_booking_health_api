@@ -24,4 +24,6 @@ public class Symptom implements Serializable {
     @ManyToMany(mappedBy = "symptoms")
     private List<Specialist> specialists;
 
+    @ManyToMany(mappedBy = "symptoms")
+    private List<Appointment> appointments;
 }

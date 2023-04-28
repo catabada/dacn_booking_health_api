@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.entity.Schedule;
 
 @Repository
-public interface ScheduleRepository extends JpaRepository<Long, Schedule> {
+public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 }
