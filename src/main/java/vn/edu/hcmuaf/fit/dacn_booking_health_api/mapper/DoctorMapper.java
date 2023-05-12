@@ -16,6 +16,11 @@ public interface DoctorMapper {
     @Mapping(target = "specialist", qualifiedByName = "toSpecialistDtoWithoutDoctors")
     DoctorDto toDoctorDto(Doctor doctor);
 
+    @Named("toDoctorDtoWithoutSchedules")
+    @Mapping(target = "schedules", ignore = true)
+    @Mapping(target = "specialist", qualifiedByName = "toSpecialistDtoWithoutDoctors")
+    DoctorDto toDoctorDtoWithoutSchedules(Doctor doctor);
+
     Doctor toDoctorEntity(DoctorDto doctorDto);
 
     @IterableMapping(qualifiedByName = "toDoctorDto")

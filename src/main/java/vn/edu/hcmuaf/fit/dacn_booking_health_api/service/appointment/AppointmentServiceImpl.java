@@ -1,16 +1,22 @@
 package vn.edu.hcmuaf.fit.dacn_booking_health_api.service.appointment;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.appointment.AppointmentDto;
-import vn.edu.hcmuaf.fit.dacn_booking_health_api.entity.*;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.symptom.SymptomDto;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.entity.Appointment;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.entity.Schedule;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.entity.Symptom;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.exception.BadRequestException;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.mapper.AppointmentMapper;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.repository.appointment.AppointmentRepository;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.repository.schedule.ScheduleRepository;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.repository.symptom.SymptomRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -18,39 +24,41 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final ScheduleRepository scheduleRepository;
     private final SymptomRepository symptomRepository;
-    private final ObjectMapper objectMapper;
+    private final AppointmentMapper appointmentMapper;
 
     @Autowired
     public AppointmentServiceImpl(AppointmentRepository appointmentRepository, ScheduleRepository scheduleRepository,
-            SymptomRepository symptomRepository, ObjectMapper objectMapper) {
+                                  SymptomRepository symptomRepository, AppointmentMapper appointmentMapper) {
         this.appointmentRepository = appointmentRepository;
         this.scheduleRepository = scheduleRepository;
         this.symptomRepository = symptomRepository;
-        this.objectMapper = objectMapper;
+
+        this.appointmentMapper = appointmentMapper;
     }
 
     @Override
     public AppointmentDto createAppointment(AppointmentDto appointmentDto) throws BadRequestException {
         Schedule schedule = scheduleRepository
                 .findById(appointmentDto.getSchedule().getId()).orElse(null);
-        if(ObjectUtils.isEmpty(schedule)) throw new BadRequestException("Không tìm thấy lịch khám");
+        if (ObjectUtils.isEmpty(schedule)) throw new BadRequestException("Không tìm thấy lịch khám");
 
-//        List<Long> ids = appointmentDto.getSymptoms().stream().map(SymptomDto::getId).toList();
-//        List<Symptom> symptoms = new ArrayList<>(symptomRepository.findAllById(ids));
+        List<Long> ids = appointmentDto.getSymptoms().stream().map(SymptomDto::getId).toList();
+        List<Symptom> symptoms = new ArrayList<>(symptomRepository.findAllById(ids));
 
-        Appointment appointment = objectMapper.convertValue(appointmentDto, Appointment.class);
+        Appointment appointment = appointmentMapper.toAppointmentEntity(appointmentDto);
         appointment.setSchedule(schedule);
-//        appointment.setSymptoms(symptoms);
+        appointment.setSymptoms(symptoms);
 
         Appointment newAppointment = appointmentRepository.save(appointment);
-        if(ObjectUtils.isEmpty(newAppointment)) throw new BadRequestException("Can't create appointment");
-        return objectMapper.convertValue(newAppointment, AppointmentDto.class);
+        if (ObjectUtils.isEmpty(newAppointment)) throw new BadRequestException("Can't create appointment");
+        return appointmentMapper.toAppointmentDto(newAppointment);
     }
 
     @Override
     public AppointmentDto getAppointment(Long id) throws BadRequestException {
-        AppointmentDto appointmentDto = objectMapper.convertValue(appointmentRepository.findById(id), AppointmentDto.class);
-        if(ObjectUtils.isEmpty(appointmentDto)) throw new BadRequestException("Không tìm thấy cuộc hẹn");
+        AppointmentDto appointmentDto = appointmentMapper.toAppointmentDto(appointmentRepository.findById(id).orElse(null));
+
+        if (ObjectUtils.isEmpty(appointmentDto)) throw new BadRequestException("Không tìm thấy lịch khám");
         return appointmentDto;
     }
 }
