@@ -24,7 +24,6 @@ public class SymptomServiceIml implements SymptomService {
     @Override
     public List<SymptomDto> findAll() {
         List<Symptom> symptoms = symptomRepository.findAll();
-        System.out.println(symptoms);
         return symptomMapper.toSymptomDtoList(symptoms);
     }
 }

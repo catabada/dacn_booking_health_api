@@ -52,10 +52,8 @@ public class DoctorServiceImpl implements DoctorService {
                 .flatMap(List::stream)
                 .distinct()
                 .toList();
-        System.out.println(specialists.size());
 
         List<Doctor> doctors = doctorRepository.findAllBySpecialists(specialists);
-        System.out.println(doctors.size());
         return doctorMapper.toDoctorDtoList(doctors);
     }
 

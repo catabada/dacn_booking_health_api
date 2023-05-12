@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.dacn_booking_health_api.controller;
 
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,8 @@ import vn.edu.hcmuaf.fit.dacn_booking_health_api.exception.BadRequestException;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.response.HttpResponse;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.response.HttpResponseSuccess;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.service.appointment.AppointmentService;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/appointment")
@@ -22,7 +25,7 @@ public class AppointmentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<HttpResponse> createAppointment(@RequestBody AppointmentRequest appointmentRequest) throws BadRequestException {
+    public ResponseEntity<HttpResponse> createAppointment(@RequestBody AppointmentRequest appointmentRequest) throws BadRequestException, MessagingException, IOException {
         AppointmentDto appointmentDto = appointmentService.createAppointment(appointmentRequest);
         return ResponseEntity.ok(HttpResponseSuccess.success(appointmentDto));
     }
