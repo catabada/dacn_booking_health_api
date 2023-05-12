@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.dacn_booking_health_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -18,10 +19,13 @@ public class Doctor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
     private String name;
 
-    @ManyToOne
+    private boolean isMale;
+
+    private String image;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "specialist_id")
     private Specialist specialist;
 }

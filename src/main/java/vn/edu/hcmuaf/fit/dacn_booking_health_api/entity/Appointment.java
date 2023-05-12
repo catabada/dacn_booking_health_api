@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -21,25 +23,17 @@ public class Appointment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
-    private String email;
-
-    private String phone;
-
-    private String address;
-
-    private Boolean isMale;
-
-    @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", locale = "Asia/Ho_Chi_Minh")
-    private Date birthDay;
+    @ManyToOne
+    private Patient patient;
 
     private String description;
 
-    @Transient
-    @OneToOne
-    @JoinColumn(name = "schedule_id")
+    @CreationTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", locale = "Asia/Ho_Chi_Minh")
+    private ZonedDateTime dateCreated;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
     private Schedule schedule;
 
     @ManyToMany

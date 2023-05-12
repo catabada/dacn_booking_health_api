@@ -1,5 +1,7 @@
 package vn.edu.hcmuaf.fit.dacn_booking_health_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -22,7 +24,7 @@ public class Specialist implements Serializable {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "specialist")
+    @OneToMany(mappedBy = "specialist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Doctor> doctors;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

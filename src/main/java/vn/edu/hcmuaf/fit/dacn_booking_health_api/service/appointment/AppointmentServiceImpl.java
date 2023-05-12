@@ -6,15 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.appointment.AppointmentDto;
-import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.symptom.SymptomDto;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.entity.*;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.exception.BadRequestException;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.repository.appointment.AppointmentRepository;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.repository.schedule.ScheduleRepository;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.repository.symptom.SymptomRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Transactional
@@ -35,15 +31,15 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentDto createAppointment(AppointmentDto appointmentDto) throws BadRequestException {
-//        Schedule schedule = scheduleRepository
-//                .findById(appointmentDto.getSchedule().getId()).orElse(null);
-//        if(ObjectUtils.isEmpty(schedule)) throw new BadRequestException("Không tìm thấy lịch khám");
+        Schedule schedule = scheduleRepository
+                .findById(appointmentDto.getSchedule().getId()).orElse(null);
+        if(ObjectUtils.isEmpty(schedule)) throw new BadRequestException("Không tìm thấy lịch khám");
 
 //        List<Long> ids = appointmentDto.getSymptoms().stream().map(SymptomDto::getId).toList();
 //        List<Symptom> symptoms = new ArrayList<>(symptomRepository.findAllById(ids));
 
         Appointment appointment = objectMapper.convertValue(appointmentDto, Appointment.class);
-//        appointment.setSchedule(schedule);
+        appointment.setSchedule(schedule);
 //        appointment.setSymptoms(symptoms);
 
         Appointment newAppointment = appointmentRepository.save(appointment);

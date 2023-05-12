@@ -1,11 +1,15 @@
 package vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.schedule;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Column;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.DoctorDto;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.doctor.DoctorDto;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.appointment.AppointmentDto;
 
-import java.sql.Time;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,10 +21,19 @@ public class ScheduleDto {
 
     private DoctorDto doctor;
 
-    // day of week
-    private Integer dayOfWeek;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm", locale = "Asia/Ho_Chi_Minh")
+    private ZonedDateTime appointmentDate;
 
-    // time
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm", locale = "Asia/Ho_Chi_Minh")
-    private Time time;
+    private Integer maxPatient;
+
+    private Integer currentPatient;
+
+    private Boolean isFull;
+
+    private Boolean isAvailable;
+
+    private Boolean isExpired;
+
+    @JsonIgnoreProperties({"schedule"})
+    private List<AppointmentDto> appointments;
 }

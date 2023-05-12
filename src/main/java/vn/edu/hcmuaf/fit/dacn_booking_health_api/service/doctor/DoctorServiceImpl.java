@@ -3,8 +3,9 @@ package vn.edu.hcmuaf.fit.dacn_booking_health_api.service.doctor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.DoctorDto;
-import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.DoctorRequest;
+import org.springframework.transaction.annotation.Transactional;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.doctor.DoctorDto;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.doctor.DoctorRequest;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.entity.*;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.repository.doctor.DoctorRepository;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.repository.symptom.SymptomRepository;
@@ -12,6 +13,7 @@ import vn.edu.hcmuaf.fit.dacn_booking_health_api.repository.symptom.SymptomRepos
 import java.util.List;
 
 @Service
+@Transactional
 public class DoctorServiceImpl implements DoctorService {
     private final DoctorRepository doctorRepository;
     private final SymptomRepository symptomRepository;
@@ -33,6 +35,13 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<DoctorDto> getDoctors(DoctorRequest request) {
+        objectMapper.findAndRegisterModules();
+        if (request.getSymptomIds() == null || request.getSymptomIds().isEmpty()) {
+            return doctorRepository.findAll().stream()
+                    .map(doctor -> objectMapper.convertValue(doctor, DoctorDto.class))
+                    .toList();
+        }
+
         List<Symptom> symptoms = symptomRepository.findAllById(request.getSymptomIds());
 
         List<Specialist> specialists = symptoms.stream()

@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 import java.io.Serializable;
 import java.sql.Time;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,10 +25,23 @@ public class Schedule implements Serializable {
     @ManyToOne
     private Doctor doctor;
 
-    // day of week
-    private Integer dayOfWeek;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm", locale = "Asia/Ho_Chi_Minh")
+    private ZonedDateTime appointmentDate;
 
-    // time
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm", locale = "Asia/Ho_Chi_Minh")
-    private Time time;
+    private Integer maxPatient;
+
+    @Column(columnDefinition = "integer default 0")
+    private Integer currentPatient;
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isFull;
+
+    @Column(columnDefinition = "boolean default true")
+    private Boolean isAvailable;
+
+    @Column(columnDefinition = "boolean default false")
+    private Boolean isExpired;
+
+    @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Appointment> appointments;
 }

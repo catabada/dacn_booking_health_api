@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.appointment.AppointmentDto;
-import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.appointment.AppointmentRequestDto;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.appointment.AppointmentRequest;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.exception.BadRequestException;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.response.HttpResponse;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.response.HttpResponseSuccess;
@@ -22,8 +22,8 @@ public class AppointmentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<HttpResponse> createAppointment(@RequestBody AppointmentRequestDto create) throws BadRequestException {
-        AppointmentDto appointmentDto = appointmentService.createAppointment(create);
+    public ResponseEntity<HttpResponse> createAppointment(@RequestBody AppointmentRequest appointmentRequest) throws BadRequestException {
+        AppointmentDto appointmentDto = appointmentService.createAppointment(appointmentRequest);
         return ResponseEntity.ok(HttpResponseSuccess.success(appointmentDto));
     }
 

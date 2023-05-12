@@ -1,7 +1,7 @@
 package vn.edu.hcmuaf.fit.dacn_booking_health_api.service.doctor;
 
-import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.DoctorDto;
-import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.DoctorRequest;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.doctor.DoctorDto;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.doctor.DoctorRequest;
 
 import java.util.List;
 

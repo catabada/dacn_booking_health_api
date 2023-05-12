@@ -1,4 +1,4 @@
-package vn.edu.hcmuaf.fit.dacn_booking_health_api.dto;
+package vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.doctor;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;

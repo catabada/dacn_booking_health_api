@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.DoctorDto;
-import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.DoctorRequest;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.doctor.DoctorDto;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.doctor.DoctorRequest;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.response.HttpResponse;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.response.HttpResponseSuccess;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.service.doctor.DoctorService;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.service.doctor.DoctorServiceImpl;
 
 import java.util.List;
@@ -15,11 +16,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/doctor")
 public class DoctorController {
-    private final DoctorServiceImpl doctorService;
+    private final DoctorService doctorService;
 
 
     @Autowired
-    public DoctorController(DoctorServiceImpl doctorService) {
+    public DoctorController(DoctorService doctorService) {
         this.doctorService = doctorService;
     }
 
