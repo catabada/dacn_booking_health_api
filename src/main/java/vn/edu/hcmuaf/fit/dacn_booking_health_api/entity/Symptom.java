@@ -23,7 +23,4 @@ public class Symptom implements Serializable {
 
     @ManyToMany(mappedBy = "symptoms")
     private List<Specialist> specialists;
-
-    @ManyToMany(mappedBy = "symptoms", fetch = FetchType.LAZY)
-    private List<Appointment> appointments;
 }

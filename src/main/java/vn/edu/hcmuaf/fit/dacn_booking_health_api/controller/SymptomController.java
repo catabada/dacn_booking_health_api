@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.symptom.SymptomDto;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.entity.Symptom;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.response.HttpResponse;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.response.HttpResponseSuccess;
@@ -24,7 +25,7 @@ public class SymptomController {
 
     @GetMapping("/list")
     public ResponseEntity<HttpResponse> getAllSymptoms() {
-        List<Symptom> symptoms = symptomService.findAll();
+        List<SymptomDto> symptoms = symptomService.findAll();
         return ResponseEntity.ok(HttpResponseSuccess.success(symptoms));
     }
 }
