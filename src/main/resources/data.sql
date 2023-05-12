@@ -20,9 +20,9 @@ insert into specialist_symptom(specialist_id, symptom_id) values (3, 2);
 insert into specialist_symptom(specialist_id, symptom_id) values (3, 3);
 insert into specialist_symptom(specialist_id, symptom_id) values (3, 4);
 
-insert into doctor(name, specialist_id, is_male) values ('Dr. Smith', 1, true);
-insert into doctor(name, specialist_id, is_male) values ('Dr. Jones', 2, true);
-insert into doctor(name, specialist_id, is_male) values ('Dr. Williams', 3, true);
+insert into doctor(name, specialist_id, is_male, image) values ('Dr. Smith', 1, true, 'https://robohash.org/smith');
+insert into doctor(name, specialist_id, is_male, image) values ('Dr. Jones', 2, true, 'https://robohash.org/jones');
+insert into doctor(name, specialist_id, is_male, image) values ('Dr. Williams', 3, true, 'https://robohash.org/williams');
 
 insert into schedule(doctor_id, appointment_date, max_patient) values (1, '2023-05-19 08:00:00', 4);
 insert into schedule(doctor_id, appointment_date, max_patient) values (1, '2023-05-19 09:00:00', 4);
