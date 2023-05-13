@@ -30,6 +30,7 @@ public class DoctorController {
         List<DoctorDto> doctors = doctorService.searchDoctor(search);
         return ResponseEntity.ok(HttpResponseSuccess.success(doctors));
     }
+
     @GetMapping("/list")
     public ResponseEntity<HttpResponse> getDoctors(@RequestBody DoctorRequest request) {
         List<DoctorDto> doctors = doctorService.getDoctors(request);

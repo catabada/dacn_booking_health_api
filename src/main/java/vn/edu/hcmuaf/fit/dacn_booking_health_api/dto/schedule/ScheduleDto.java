@@ -19,6 +19,7 @@ public class ScheduleDto {
 
     private Long id;
 
+    @JsonIgnoreProperties({"schedules"})
     private DoctorDto doctor;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm", locale = "Asia/Ho_Chi_Minh")

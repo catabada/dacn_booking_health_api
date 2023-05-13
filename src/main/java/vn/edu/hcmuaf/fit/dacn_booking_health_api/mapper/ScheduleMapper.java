@@ -12,7 +12,8 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {DoctorMapper.class})
 public interface ScheduleMapper {
     @Named("toScheduleDto")
-    @Mapping(target = "doctor", qualifiedByName = "toDoctorDtoWithoutSchedules")
+    @Mapping(target = "doctor", ignore = true)
+    @Mapping(target = "appointments", ignore = true)
     ScheduleDto toScheduleDto(Schedule schedule);
 
     @Named("toScheduleDtoWithoutAppointment")
