@@ -23,7 +23,7 @@ public interface ScheduleMapper {
 
     Schedule toScheduleEntity(ScheduleDto scheduleDto);
 
-    @IterableMapping(qualifiedByName = "toScheduleDto")
+    @IterableMapping(qualifiedByName = "toScheduleDtoWithoutAppointment")
     List<ScheduleDto> toScheduleDtoList(List<Schedule> schedules);
 
     List<Schedule> toScheduleEntityList(List<ScheduleDto> scheduleDtos);
