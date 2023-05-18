@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {SpecialistMapper.class})
 public interface DoctorMapper {
     @Named("toDoctorDto")
-    @Mapping(target = "schedules", qualifiedByName = "toScheduleDto")
+    @Mapping(target = "schedules", qualifiedByName = "toScheduleDtoInDoctor")
     @Mapping(target = "specialist", qualifiedByName = "toSpecialistDtoWithoutDoctors")
     DoctorDto toDoctorDto(Doctor doctor);
 
@@ -31,8 +31,7 @@ public interface DoctorMapper {
 
     List<Doctor> toDoctorEntityList(List<DoctorDto> doctorDtos);
 
-
-    @Named("toScheduleDto")
+    @Named("toScheduleDtoInDoctor")
     @Mapping(target = "doctor", ignore = true)
     @Mapping(target = "appointments", ignore = true)
     ScheduleDto toScheduleDto(Schedule schedule);

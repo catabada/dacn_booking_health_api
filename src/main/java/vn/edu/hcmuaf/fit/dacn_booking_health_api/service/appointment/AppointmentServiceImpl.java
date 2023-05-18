@@ -65,7 +65,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment newAppointment = appointmentRepository.save(appointment);
         if (ObjectUtils.isEmpty(newAppointment)) throw new BadRequestException("Can't create appointment");
 
-//        appMailService.sendAppointmentEmail(newAppointment);
+        appMailService.sendAppointmentEmail(newAppointment);
 
         return appointmentMapper.toAppointmentDto(newAppointment);
     }

@@ -1,0 +1,139 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .content{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-family: 'Poppins', sans-serif;
+            margin: 20px 0 20px 0;
+            background-color: #f4f4f8;
+        }
+
+        /* Main Ticket Style */
+        .ticketContainer{
+        }
+        .ticket{
+            animation: bouncingCard 0.6s ease-out infinite alternate;
+            color: darkslategray;
+            border-radius: 12px;
+            background-color: #fdbf50;
+        }
+
+        /* Ticket Content */
+        .ticketTitle{
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 12px 16px 4px;
+        }
+        .ticketDetail{
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 4px 16px;
+        }
+        .ticketSubDetail{
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            padding: 12px 16px;
+        }
+        .ticketSubDetail .code{
+            margin-right: 24px;
+        }
+        /* Ticket Ripper */
+        .ticketRip{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .circleLeft{
+            width: 12px;
+            height: 24px;
+            background-color: #f4f4f8;
+            border-radius: 0 12px 12px 0;
+        }
+        .ripLine{
+            width: 100%;
+            border-top: 3px solid #f4f4f8;
+            border-top-style: dashed ;
+        }
+        .circleRight{
+            width: 12px;
+            height: 24px;
+            background-color: #f4f4f8;
+            border-radius: 12px 0 0 12px;
+        }
+        .time{
+            padding-right: 300px;
+        }
+        .button-1 {
+            background-color: #EA4C89;
+            border-radius: 8px;
+            border-style: none;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            height: 40px;
+            line-height: 20px;
+            list-style: none;
+            outline: none;
+            padding: 10px 16px;
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+            transition: color 100ms;
+            vertical-align: baseline;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            margin-top: 20px;
+        }
+
+        .button-1:hover,
+        .button-1:focus {
+            background-color: #F082AC;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="ticketContainer">
+        <div class="ticket">
+            <div class="ticketTitle">Phiếu khám bệnh</div>
+            <div class="ticketDetail">
+                <div>Tên bệnh nhân: <span th:text="${name}"/></div>
+                <div>Giới tính: <span th:text="${gender}"/></div>
+                <div>Ngày sinh: <span th:text="${birthDay}"/></div>
+                <div>Triệu chứng:</div>
+                <div th:each="symptom : ${symptoms}">
+                    <div th:text="${symptom.name}"></div>
+                </div>
+                <br/>
+                <div>Bác sĩ điều trị: <span th:text="${doctor}"/></div>
+                <div>Chuyên khoa: <span th:text="${specialist}"/></div>
+            </div>
+            <div class="ticketRip">
+                <div class="circleLeft"></div>
+                <div class="ripLine"></div>
+                <div class="circleRight"></div>
+            </div>
+            <div class="ticketSubDetail">
+                <div class="time">Giờ khám: <span th:text="${datetime}"/></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

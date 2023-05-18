@@ -1,9 +1,6 @@
 package vn.edu.hcmuaf.fit.dacn_booking_health_api.mapper;
 
-import org.mapstruct.IterableMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import org.mapstruct.*;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.dto.schedule.ScheduleDto;
 import vn.edu.hcmuaf.fit.dacn_booking_health_api.entity.Schedule;
 
