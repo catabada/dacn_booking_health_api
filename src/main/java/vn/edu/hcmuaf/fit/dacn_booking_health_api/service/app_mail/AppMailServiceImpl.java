@@ -49,7 +49,7 @@ public class AppMailServiceImpl implements AppMailService {
 
             String template = templateEngine.process("appointment", context);
 
-            appMailSender.sendMail(username, appointment.getPatient().getEmail(), template, "Appointment", true);
+            appMailSender.sendMail(username, appointment.getPatient().getEmail(), template, "Booking Heath Service - Appointment", true);
         } catch (Exception e) {
             log.error("Send email booking ticket failed: " + e.getMessage());
             throw new BadRequestException("Không thể gửi email xác nhận đặt lịch khám");
